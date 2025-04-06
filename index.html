@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Calculator</title>
+<style>			
+  html,body {
+    width:100%;
+    font-family:cantarell;
+    font-weight:bold;
+    overflow:hidden;
+    padding:0;
+    margin:0;
+    color:#aaa;
+    background:#161616
+  }
+  #calculator {
+    position:relative;
+    width:100%;
+    text-align:center;
+  }
+  .calc-input {
+    width:90%;
+    font-size:30px;
+    text-align:center;
+    padding:5px;
+    margin:10px 0 0 0;
+    border:3px solid #aaa;
+    background:#161616;
+    color:#aaa;
+  }
+  .calc-input:focus {
+    border:3px solid #529700;
+  }
+  #results, #donations {
+    width:100%;
+    text-align:center;
+    margin:10px 0 0 0;
+  }
+  #normal,#inverse {
+    width:44%;
+    border:1px solid #202020;
+    display:inline-block;
+    font-size:25px;
+  }
+  #normal {
+    text-align:left;
+    padding:0 0 0 5px;
+    vertical-align:top;
+  }
+  #inverse {
+    text-align:right;
+    padding:0 5px 0 0;
+    vertical-align:top;
+  }
+  .result {
+    float:right;
+    margin:0 20px 0 0;
+  }
+  .nostra-result {
+    float:right;
+    margin:0 20px 0 0;
+    color:#529700;
+  }
+  .calc-result {
+    float:right;
+    margin:0 50px 0 0;
+    color:#db2323;
+  }
+  .inv-result {
+    float:left;
+    margin:0 0 0 20px;
+  }
+  .inv-nostra-result {
+    float:left;
+    margin:0 0 0 20px;
+    color:#529700;
+  }
+  .inv-calc-result {
+    float:left;
+    margin:0 0 0 50px;
+    color:#db2323;
+  }
+  #title {
+    font-size:40px;
+  }
+  .result-row {
+    margin:30px 0 30px 0;
+  }
+  .highlight {
+    color:#eba804;
+  }
+  .warning {
+    color:red;
+  }
+  .input-text {
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+<div id="calculator">
+<div id="title">CALCULATOR</div>
+<input class="calc-input" placeholder="Enter your phrase or word..." type="text"/><br/>
+
+<div class="input-text">
+  Normal: <span class="original-text"></span><br/>
+  <span style="color:#529700;">Nostra: </span><span class="nostra-text"></span>
+</div>
+
+<div id="results">
+  <div id="normal">
+    <div class="result-row">
+      Logarithmic
+      <span class="nostra-result" id="log_nostra">0</span>
+      <span class="result" id="log">0</span>
+      <span class="calc-result" id="log_calc">0</span>
+    </div>
+    <div class="result-row">Base 100
+      <span class="nostra-result" id="base100_nostra">0</span>
+      <span class="result" id="base100">0</span>
+      <span class="calc-result" id="base100_calc">0</span>
+    </div>
+    <div class="result-row">Base 3
+      <span class="nostra-result" id="base3_nostra">0</span>
+      <span class="result" id="base3">0</span>
+      <span class="calc-result" id="base3_calc">0</span>
+    </div>
+    <div class="result-row">Base 6
+      <span class="nostra-result" id="base6_nostra">0</span>
+      <span class="result" id="base6">0</span>
+      <span class="calc-result" id="base6_calc">0</span>
+    </div>
+    <div class="result-row">Base 9
+      <span class="nostra-result" id="base9_nostra">0</span>
+      <span class="result" id="base9">0</span>
+      <span class="calc-result" id="base9_calc">0</span>
+    </div>
+    <div class="result-row">Base 36
+      <span class="nostra-result" id="base36_nostra">0</span>
+      <span class="result" id="base36">0</span>
+      <span class="calc-result" id="base36_calc">0</span>
+    </div>
+  </div>
+  <div id="inverse">
+    <div class="result-row">
+      <span class="inv-result" id="log_inv">0</span>
+      <span class="inv-nostra-result" id="log_inv_nostra">0</span>
+      <span class="inv-calc-result" id="log_inv_calc">0</span>
+      Inverse Logarithmic
+    </div>
+    <div class="result-row">
+      <span class="inv-result" id="base100_inv">0</span>
+      <span class="inv-nostra-result" id="base100_inv_nostra">0</span>
+      <span class="inv-calc-result" id="base100_inv_calc">0</span>
+      Inverse Base 100
+    </div>
+    <div class="result-row">
+      <span class="inv-result" id="base3_inv">0</span>
+      <span class="inv-nostra-result" id="base3_inv_nostra">0</span>
+      <span class="inv-calc-result" id="base3_inv_calc">0</span>
+      Inverse Base 3
+    </div>
+    <div class="result-row">
+      <span class="inv-result" id="base6_inv">0</span>
+      <span class="inv-nostra-result" id="base6_inv_nostra">0</span>
+      <span class="inv-calc-result" id="base6_inv_calc">0</span>
+      Inverse Base 6
+    </div>
+    <div class="result-row">
+      <span class="inv-result" id="base9_inv">0</span>
+      <span class="inv-nostra-result" id="base9_inv_nostra">0</span>
+      <span class="inv-calc-result" id="base9_inv_calc">0</span>
+      Inverse Base 9
+    </div>
+    <div class="result-row">
+      <span class="inv-result" id="base36_inv">0</span>
+      <span class="inv-nostra-result" id="base36_inv_nostra">0</span>
+      <span class="inv-calc-result" id="base36_inv_calc">0</span>
+      Inverse Base 36
+    </div>
+  </div>
+</div>
+</div>
+
+<div id="donations">
+<center>
+<h2>🎁 Support Me</h2>
+<p><strong>You can support me to keep my projects alive.</strong></p>
+<p><em>Please think twice before donating because I have no time or means to handle refunds.</em></p>
+<p><strong>On behalf of everyone who uses what I share, I accept your thanks for your contributions.</strong></p>
+
+<a href="https://ppr.ist/1T9dx8tUT" target="_blank">
+  <img src="https://img.shields.io/badge/Donate-%E2%9D%A4-blue" alt="Donate using Papara">
+</a></p>
+
+<p><a href="https://ppr.ist/1T99dYF5X" target="_blank">
+  <img src="1513592797QR.png" alt="Papara ile Desteklen">
+</a></p>
+<p class="spellcounter"><img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" title="attributes are great">&nbsp;<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" title="style is more than make up">&nbsp;<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" title="live Frenkanstein!"></p></center>
+</div>
+
+<script>
+// Character value mappings
+const mappings = {
+  normal: {
+    A: 1, B: 2, C: 3, D: 4, E: 5, F: 6, G: 7, H: 8, I: 9, J: 10,
+    K: 11, L: 12, M: 13, N: 14, O: 15, P: 16, Q: 17, R: 18, S: 19,
+    T: 20, U: 21, V: 22, W: 23, X: 24, Y: 25, Z: 26, " ": 0
+  },
+  inverse: {
+    A: 26, B: 25, C: 24, D: 23, E: 22, F: 21, G: 20, H: 19, I: 18,
+    J: 17, K: 16, L: 15, M: 14, N: 13, O: 12, P: 11, Q: 10, R: 9,
+    S: 8, T: 7, U: 6, V: 5, W: 4, X: 3, Y: 2, Z: 1, " ": 0
+  },
+  base36: {
+    A: 36, B: 37, C: 38, D: 39, E: 40, F: 41, G: 42, H: 43, I: 44,
+    J: 45, K: 46, L: 47, M: 48, N: 49, O: 50, P: 51, Q: 52, R: 53,
+    S: 54, T: 55, U: 56, V: 57, W: 58, X: 59, Y: 60, Z: 61, " ": 0
+  },
+  base36_inverse: {
+    A: 61, B: 60, C: 59, D: 58, E: 57, F: 56, G: 55, H: 54, I: 53,
+    J: 52, K: 51, L: 50, M: 49, N: 48, O: 47, P: 46, Q: 45, R: 44,
+    S: 43, T: 42, U: 41, V: 40, W: 39, X: 38, Y: 37, Z: 36, " ": 0
+  },
+  base100: {
+    A: 100, B: 101, C: 102, D: 103, E: 104, F: 105, G: 106, H: 107,
+    I: 108, J: 109, K: 110, L: 111, M: 112, N: 113, O: 114, P: 115,
+    Q: 116, R: 117, S: 118, T: 119, U: 120, V: 121, W: 122, X: 123,
+    Y: 124, Z: 125, " ": 0
+  },
+  base100_inverse: {
+    A: 125, B: 124, C: 123, D: 122, E: 121, F: 120, G: 119, H: 118,
+    I: 117, J: 116, K: 115, L: 114, M: 113, N: 112, O: 111, P: 110,
+    Q: 109, R: 108, S: 107, T: 106, U: 105, V: 104, W: 103, X: 102,
+    Y: 101, Z: 100, " ": 0
+  }
+};
+
+// Warning numbers to highlight
+const warningNumbers = [
+  "111", "222", "333", "303", "444", "555", "666", "777", 
+  "270", "337", "367", "370", "371", "810", "1110", 
+  "1998", "3330", "6660"
+];
+
+// Number to French words conversion
+function numberToFrenchWords(num) {
+  const units = ["zéro", "un", "deux", "trois", "quatre", "cinq", "six", "sept", "huit", "neuf"];
+  const teens = ["dix", "onze", "douze", "treize", "quatorze", "quinze", "seize", "dix-sept", "dix-huit", "dix-neuf"];
+  const tens = ["", "dix", "vingt", "trente", "quarante", "cinquante", "soixante", "soixante-dix", "quatre-vingt", "quatre-vingt-dix"];
+  
+  if (num < 10) return units[num];
+  if (num < 20) return teens[num - 10];
+  
+  const ten = Math.floor(num / 10);
+  const unit = num % 10;
+  
+  if (num < 70 || (num > 79 && num < 90)) {
+    if (unit === 0) return tens[ten];
+    if (unit === 1 && ten !== 8) return tens[ten] + "-et-un";
+    return tens[ten] + "-" + units[unit];
+  }
+  
+  // Special cases for 70-79 and 90-99
+  if (num < 80) {
+    if (num === 71) return "soixante-et-onze";
+    return "soixante-" + teens[num - 60];
+  }
+  
+  if (num < 100) {
+    if (num === 81) return "quatre-vingt-un";
+    return "quatre-vingt-" + (num === 90 ? "dix" : teens[num - 80]);
+  }
+  
+  if (num < 1000) {
+    const hundred = Math.floor(num / 100);
+    const remainder = num % 100;
+    
+    let result = hundred === 1 ? "cent" : units[hundred] + " cent";
+    if (remainder === 0) {
+      return hundred > 1 ? result + "s" : result;
+    }
+    return result + " " + numberToFrenchWords(remainder);
+  }
+  
+  if (num < 1000000) {
+    const thousand = Math.floor(num / 1000);
+    const remainder = num % 1000;
+    
+    let result = thousand === 1 ? "mille" : numberToFrenchWords(thousand) + " mille";
+    if (remainder === 0) return result;
+    return result + " " + numberToFrenchWords(remainder);
+  }
+  
+  return "Nombre trop grand";
+}
+
+// Convert numbers in text to their French word equivalents
+function convertNumbersToWords(text) {
+  const numberRegex = /\d+/g;
+  const numbers = text.match(numberRegex) || [];
+  let convertedText = text;
+  
+  numbers.forEach(numStr => {
+    const num = parseInt(numStr, 10);
+    const word = numberToFrenchWords(num);
+    convertedText = convertedText.replace(numStr, word);
+  });
+  
+  return convertedText.replace(/-/g, " ");
+}
+
+// Calculate values for a given text and mapping
+function calculateValues(text, mapping) {
+  let result = 0;
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i];
+    if (mapping[char] !== undefined) {
+      result += mapping[char];
+    }
+  }
+  return result;
+}
+
+// Process input and update results
+function processInput() {
+  let input = document.querySelector(".calc-input").value.toUpperCase();
+  
+  // Convert numbers to words in the input
+  input = convertNumbersToWords(input);
+  
+  // Display the processed text
+  document.querySelector(".original-text").textContent = input.toLowerCase();
+  
+  // Calculate nostra text (without vowels)
+  const nostraText = input.replace(/[AEIOUY]/g, '');
+  document.querySelector(".nostra-text").textContent = nostraText.toLowerCase();
+  
+  // Calculate normal values
+  const log = calculateValues(input, mappings.normal);
+  const base3 = log * 3;
+  const base6 = log * 6;
+  const base9 = log * 9;
+  const base36 = calculateValues(input, mappings.base36);
+  const base100 = calculateValues(input, mappings.base100);
+  
+  // Calculate inverse values
+  const logInv = calculateValues(input, mappings.inverse);
+  const base3Inv = logInv * 3;
+  const base6Inv = logInv * 6;
+  const base9Inv = logInv * 9;
+  const base36Inv = calculateValues(input, mappings.base36_inverse);
+  const base100Inv = calculateValues(input, mappings.base100_inverse);
+  
+  // Calculate differences
+  const logDiff = log - logInv;
+  const base3Diff = base3 - base3Inv;
+  const base6Diff = base6 - base6Inv;
+  const base9Diff = base9 - base9Inv;
+  const base36Diff = base36 - base36Inv;
+  const base100Diff = base100 - base100Inv;
+  
+  // Update DOM with calculated values
+  document.getElementById("log").textContent = log;
+  document.getElementById("base3").textContent = base3;
+  document.getElementById("base6").textContent = base6;
+  document.getElementById("base9").textContent = base9;
+  document.getElementById("base36").textContent = base36;
+  document.getElementById("base100").textContent = base100;
+  
+  document.getElementById("log_inv").textContent = logInv;
+  document.getElementById("base3_inv").textContent = base3Inv;
+  document.getElementById("base6_inv").textContent = base6Inv;
+  document.getElementById("base9_inv").textContent = base9Inv;
+  document.getElementById("base36_inv").textContent = base36Inv;
+  document.getElementById("base100_inv").textContent = base100Inv;
+  
+  document.getElementById("log_calc").textContent = logDiff;
+  document.getElementById("base3_calc").textContent = base3Diff;
+  document.getElementById("base6_calc").textContent = base6Diff;
+  document.getElementById("base9_calc").textContent = base9Diff;
+  document.getElementById("base36_calc").textContent = base36Diff;
+  document.getElementById("base100_calc").textContent = base100Diff;
+  
+  document.getElementById("log_inv_calc").textContent = -logDiff;
+  document.getElementById("base3_inv_calc").textContent = -base3Diff;
+  document.getElementById("base6_inv_calc").textContent = -base6Diff;
+  document.getElementById("base9_inv_calc").textContent = -base9Diff;
+  document.getElementById("base36_inv_calc").textContent = -base36Diff;
+  document.getElementById("base100_inv_calc").textContent = -base100Diff;
+  
+  // Calculate nostra values
+  const logNostra = calculateValues(nostraText, mappings.normal);
+  const base3Nostra = logNostra * 3;
+  const base6Nostra = logNostra * 6;
+  const base9Nostra = logNostra * 9;
+  const base36Nostra = calculateValues(nostraText, mappings.base36);
+  const base100Nostra = calculateValues(nostraText, mappings.base100);
+  
+  const logInvNostra = calculateValues(nostraText, mappings.inverse);
+  const base3InvNostra = logInvNostra * 3;
+  const base6InvNostra = logInvNostra * 6;
+  const base9InvNostra = logInvNostra * 9;
+  const base36InvNostra = calculateValues(nostraText, mappings.base36_inverse);
+  const base100InvNostra = calculateValues(nostraText, mappings.base100_inverse);
+  
+  // Update DOM with nostra values
+  document.getElementById("log_nostra").textContent = logNostra;
+  document.getElementById("base3_nostra").textContent = base3Nostra;
+  document.getElementById("base6_nostra").textContent = base6Nostra;
+  document.getElementById("base9_nostra").textContent = base9Nostra;
+  document.getElementById("base36_nostra").textContent = base36Nostra;
+  document.getElementById("base100_nostra").textContent = base100Nostra;
+  
+  document.getElementById("log_inv_nostra").textContent = logInvNostra;
+  document.getElementById("base3_inv_nostra").textContent = base3InvNostra;
+  document.getElementById("base6_inv_nostra").textContent = base6InvNostra;
+  document.getElementById("base9_inv_nostra").textContent = base9InvNostra;
+  document.getElementById("base36_inv_nostra").textContent = base36InvNostra;
+  document.getElementById("base100_inv_nostra").textContent = base100InvNostra;
+  
+  // Highlight warning numbers
+  document.querySelectorAll(".result, .nostra-result, .inv-result, .inv-nostra-result").forEach(el => {
+    if (warningNumbers.includes(el.textContent)) {
+      el.classList.add("warning");
+    } else {
+      el.classList.remove("warning");
+    }
+  });
+  
+  // Highlight matching normal/inverse values
+  const allMatch = log === logInv && base3 === base3Inv && base6 === base6Inv && 
+                  base9 === base9Inv && base36 === base36Inv && base100 === base100Inv;
+  
+  if (allMatch) {
+    document.querySelectorAll(".result, .inv-result").forEach(el => {
+      el.classList.add("highlight");
+    });
+  } else {
+    document.querySelectorAll(".result, .inv-result").forEach(el => {
+      el.classList.remove("highlight");
+    });
+  }
+}
+
+// Initialize
+document.querySelector(".calc-input").addEventListener("keyup", processInput);
+document.querySelector(".calc-input").focus();
+</script>
+</body>
+</html>
