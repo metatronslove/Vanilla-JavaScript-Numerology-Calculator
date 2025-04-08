@@ -21,6 +21,11 @@ A pure JavaScript implementation of the "Le Film de Ta Vie" numerology calculato
   - Highlights "warning numbers" (111, 222, 333, etc.)
   - Color-codes matching normal/inverse values
 
+## Demonstration Samples
+  Turkish implementation: https://hesabet.fanclub.rocks/ 
+  Turkish implementation: https://metatronslove.github.io/Vanilla-JavaScript-Numerology-Calculator/tr
+  Turkish implamentation on Wordpress Page: https://one.fanclub.rocks/le-film-de-ta-vie
+
 ## Usage
 
 1. Enter any text (words or numbers) in the input field
