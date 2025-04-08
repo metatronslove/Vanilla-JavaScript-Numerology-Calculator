@@ -10006,16 +10006,13 @@ function processInput() {
 			el.classList.add("warning");
 			el.style.cursor = "pointer";
     
-			el.addEventListener("click", function() {
-				if (modalControls) {
-					modalControls.openModal(warning.value, warning.description);
-				}
-			});
+			el.addEventListener("click", modalClick);
 		} else {
-			el.removeEventListener("click", function() {
-				if (modalControls) {
-					modalControls.openModal(warning.value, warning.description);
-				}, true);
+			el.removeEventListener("click", modalClick, true);
+		}
+		function modalClick(modalControls) {
+			if (modalControls) {
+				modalControls.openModal(warning.value, warning.description);
 			}
 		}
 	});
