@@ -10012,8 +10012,11 @@ function processInput() {
 				}
 			});
 		} else {
-			el.addEventListener("click", function() {
-			});		
+			el.removeEventListener("click", function() {
+				if (modalControls) {
+					modalControls.openModal(warning.value, warning.description);
+				}, true);
+			}
 		}
 	});
   
