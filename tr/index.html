@@ -9907,19 +9907,51 @@ function createModalClickHandler(warning, modalControls) {
   };
 }
 
+function CaseUpper(text) {
+	let upperText = "";
+	for (let upper = 0; upper < text.length; upper++) {
+		if (["a","b","c","ç","d","e","f","g","ğ","h","j","k","l","m","n","o","ö","p","r","s","ş","t","u","ü","v","y","z"].includes(text[upper])) {
+			upperText += text[upper].toUpperCase();
+		} else if (text[upper] == "i") {
+			upperText += "İ";
+		} else if (text[upper] == "ı") {
+			upperText += "I";
+		} else {
+			upperText += text[upper];
+		}	
+	}
+	return upperText;
+}
+
+function CaseLower(text) {
+	let lowerText = "";
+	for (let lower = 0; lower < text.length; lower++) {
+		if (["A","B","C","Ç","D","E","F","G","Ğ","H","J","K","L","M","N","O","Ö","P","R","S","Ş","T","U","Ü","V","Y","Z"].includes(text[lower])) {
+			lowerText += text[lower].toLowerCase();
+		} else if (text[lower] == "İ") {
+			lowerText += "i";
+		} else if (text[lower] == "I") {
+			lowerText += "ı";
+		} else {
+			lowerText += text[lower];
+		}	
+	}
+	return lowerText;
+}
+
 // Process input and update results
 function processInput() {
-  let input = document.querySelector(".calc-input").value.toUpperCase();
+  let input = CaseUpper(document.querySelector(".calc-input").value);
   
   // Convert numbers to words in the input
   input = convertNumbersToWords(input);
   
   // Display the processed text
-  document.querySelector(".original-text").textContent = input.toLowerCase();
+  document.querySelector(".original-text").textContent = CaseLower(input);
   
   // Calculate nostra text (without vowels)
   const nostraText = input.replace(/[AEIİOÖUÜ]/g, '');
-  document.querySelector(".nostra-text").textContent = nostraText.toLowerCase();
+  document.querySelector(".nostra-text").textContent = CaseLower(nostraText);
   
   // Calculate normal values
   const log = calculateValues(input, turkishMappings.normal);
