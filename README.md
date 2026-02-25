@@ -84,9 +84,13 @@ A pure JavaScript implementation of the "Le Film de Ta Vie" numerology calculato
 
 Works in all modern browsers (Chrome, Firefox, Safari, Edge). No IE support.
 
-## Donation Information
+## ☕ Destek Olun / Support
 
-The calculator includes optional donation links to support the developer. These are the same as in the original version.
+Projemi beğendiyseniz, bana bir kahve ısmarlayarak destek olabilirsiniz!
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/metatronslove)
+
+Teşekkürler! 🙏
 
 ## License
 
